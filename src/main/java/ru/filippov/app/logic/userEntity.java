@@ -2,16 +2,17 @@ package ru.filippov.app.logic;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 public class userEntity {
     @Id
     String id;
-    String firstName;
+    String name;
 
     public userEntity(String id, String firstName) {
         this.id = id;
-        this.firstName = firstName;
+        this.name = firstName;
     }
 
     public userEntity() {
@@ -25,11 +26,11 @@ public class userEntity {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

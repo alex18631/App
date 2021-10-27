@@ -7,22 +7,25 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.filippov.app.logic.userEntity;
 import ru.filippov.app.logic.userRepository;
 
+import java.util.List;
+
 @RestController
 public class userController {
 
-    userRepository a;
+    userRepository userRepository;
 
     public userController(userRepository a) {
-        this.a = a;
+        this.userRepository = a;
     }
-    @PostMapping("/")
+
+    @PostMapping("/a")
     public ResponseEntity show (){
-        a.save(new userEntity("1","Alex"));
+        userRepository.save(new userEntity("1","Alex"));
         return ResponseEntity.ok("Ой ой ой");
     }
     @GetMapping("/get")
-     public userEntity getByID(String id){
-        return new userEntity("1","Alex");
+     public List<userEntity> getByID(String id){
+        return userRepository.findAll();
      }
 
 }
