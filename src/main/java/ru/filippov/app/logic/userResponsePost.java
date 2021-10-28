@@ -1,37 +1,28 @@
 package ru.filippov.app.logic;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Entity
-@Table(name = "user_entity")
-public class userEntity {
-    @Transient
-    private UUID uuid = UUID.randomUUID();
+public class userResponsePost {
 
-    @Id
-    private String id;
     private String firstName;
     private String secondName;
     private String lastName;
     private String passport;
     private LocalDate birthDate;
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private userEntity.Gender gender;
     private int salary;
     private int creditAmount;
     private int durationInMonth;
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
-    public userEntity() {
+    public userResponsePost() {
     }
 
-    public userEntity( String firstName, String secondName, String lastName, String passport,
-                      LocalDate birthDate, Gender gender, int salary,
-                      int creditAmount, int durationInMonth) {
-        this.id = uuid.toString();
+    public userResponsePost(String firstName, String secondName, String lastName,
+                            String passport, LocalDate birthDate, userEntity.Gender gender,
+                            int salary, int creditAmount, int durationInMonth) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
@@ -41,15 +32,14 @@ public class userEntity {
         this.salary = salary;
         this.creditAmount = creditAmount;
         this.durationInMonth = durationInMonth;
-        this.status = Status.PROCESSING;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public userEntity getCustomer(userResponsePost user) {
+        return new userEntity(user.getFirstName(),user.getSecondName(),
+                user.getLastName(),user.getPassport(),
+                user.getBirthDate(),user.getGender(),
+                user.getSalary(),user.getCreditAmount(),
+                user.getDurationInMonth());
     }
 
     public String getFirstName() {
@@ -92,13 +82,7 @@ public class userEntity {
         this.birthDate = birthDate;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
 
     public int getSalary() {
         return salary;
@@ -124,19 +108,11 @@ public class userEntity {
         this.durationInMonth = durationInMonth;
     }
 
-    public Status getStatus() {
-        return status;
+    public userEntity.Gender getGender() {
+        return gender;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    enum Gender{
-        MALE,FEMALE
-    }
-
-    enum Status{
-        PROCESSING, APPROVED, DENIED
+    public void setGender(userEntity.Gender gender) {
+        this.gender = gender;
     }
 }

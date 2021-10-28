@@ -8,14 +8,23 @@
             <column name="id" type="varchar">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar"/>
+            <column name="FIRST_NAME" type="varchar"/>
+            <column name="SECOND_NAME" type="varchar"/>
+            <column name="LAST_NAME" type="varchar"/>
+            <column name="passport" type="varchar"/>
+            <column name="BIRTH_DATE" type="varchar"/>
+            <column name="gender" type="varchar"/>
+            <column name="salary" type="number"/>
+            <column name="CREDIT_AMOUNT" type="number"/>
+            <column name="DURATION_IN_MONTH" type="int"/>
+            <column name="status" type="varchar"/>
+            <column name="monthly_Payment" type="number"/>
+
         </createTable>
         <loadData encoding="UTF-8"
                   file="data.csv"
                   separator=","
                   tableName="user_entity">
-            <column name="id" type="varchar"/>
-            <column name="name" type="varchar"/>
         </loadData>
 
 

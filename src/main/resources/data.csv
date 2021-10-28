@@ -1,7 +1,4 @@
-"id","name"
-1,Ramesh
-ss,Alex
-2,Andrey
-s,Kirill
+"id","FIRST_NAME","SECOND_NAME","LAST_NAME","passport","BIRTH_DATE","gender","salary","CREDIT_AMOUNT","DURATION_IN_MONTH","status","monthly_Payment"
+3fa85f64-5717-4562-b3fc-2c963f66afa6,Иван,Иванович,Иванов,9410123456,1990-10-23,MALE,80000,300000,120,PROCESSING,0
 
 

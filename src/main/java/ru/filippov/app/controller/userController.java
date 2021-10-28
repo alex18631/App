@@ -1,31 +1,31 @@
 package ru.filippov.app.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.filippov.app.logic.userEntity;
 import ru.filippov.app.logic.userRepository;
+import ru.filippov.app.logic.userResponsePost;
 
-import java.util.List;
-
-@RestController
+@RestController()
 public class userController {
 
-    userRepository userRepository;
 
-    public userController(userRepository a) {
-        this.userRepository = a;
+   private final userRepository userRepository;
+
+    public userController(userRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @PostMapping("/a")
-    public ResponseEntity show (){
-        userRepository.save(new userEntity("1","Alex"));
-        return ResponseEntity.ok("Ой ой ой");
+
+    @PostMapping("/mortgage/application")
+    public userEntity createUser (@RequestBody userResponsePost user){
+
+        return userRepository.save(user.getCustomer(user));
     }
-    @GetMapping("/get")
-     public List<userEntity> getByID(String id){
-        return userRepository.findAll();
+    @GetMapping("/mortgage/application/{id}")
+     public ResponseEntity<userEntity> getByID(@PathVariable("id") String id){
+        var customerOpt =userRepository.findById(id);
+        return ResponseEntity.of(customerOpt);
      }
 
 }
