@@ -2,12 +2,14 @@ package ru.filippov.app.logic;
 
 import org.springframework.data.repository.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface userRepository  extends Repository<userEntity,String> {
+public interface userRepository extends Repository<MortgageApplication, String> {
 
-    Optional<userEntity> findById(String id);
+    Optional<MortgageApplication> findById(String id);
 
-    userEntity save (userEntity userEntity);
+    MortgageApplication save(MortgageApplication userEntity);
+
+    MortgageApplication findByFirstNameAndSecondNameAndLastNameAndPassport(String firstName, String secondName,
+                                                                           String lastName, String passport);
 }

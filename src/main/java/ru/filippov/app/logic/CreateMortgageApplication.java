@@ -4,7 +4,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
-public class userResponsePost {
+public class CreateMortgageApplication {
 
     private String firstName;
     private String secondName;
@@ -12,17 +12,26 @@ public class userResponsePost {
     private String passport;
     private LocalDate birthDate;
     @Enumerated(EnumType.STRING)
-    private userEntity.Gender gender;
+    private Gender gender;
     private int salary;
     private int creditAmount;
     private int durationInMonth;
 
-    public userResponsePost() {
+    public boolean poleNoEmpty() {
+        return this.firstName != null &&
+                this.secondName != null &&
+                this.lastName != null &&
+                this.passport != null &&
+                this.birthDate != null &&
+                this.gender != null;
     }
 
-    public userResponsePost(String firstName, String secondName, String lastName,
-                            String passport, LocalDate birthDate, userEntity.Gender gender,
-                            int salary, int creditAmount, int durationInMonth) {
+    public CreateMortgageApplication() {
+    }
+
+    public CreateMortgageApplication(String firstName, String secondName, String lastName,
+                                     String passport, LocalDate birthDate, Gender gender,
+                                     int salary, int creditAmount, int durationInMonth) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
@@ -34,11 +43,11 @@ public class userResponsePost {
         this.durationInMonth = durationInMonth;
     }
 
-    public userEntity getCustomer(userResponsePost user) {
-        return new userEntity(user.getFirstName(),user.getSecondName(),
-                user.getLastName(),user.getPassport(),
-                user.getBirthDate(),user.getGender(),
-                user.getSalary(),user.getCreditAmount(),
+    public MortgageApplication getCustomer(CreateMortgageApplication user) {
+        return new MortgageApplication(user.getFirstName(), user.getSecondName(),
+                user.getLastName(), user.getPassport(),
+                user.getBirthDate(), user.getGender(),
+                user.getSalary(), user.getCreditAmount(),
                 user.getDurationInMonth());
     }
 
@@ -83,7 +92,6 @@ public class userResponsePost {
     }
 
 
-
     public int getSalary() {
         return salary;
     }
@@ -108,11 +116,11 @@ public class userResponsePost {
         this.durationInMonth = durationInMonth;
     }
 
-    public userEntity.Gender getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(userEntity.Gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 }

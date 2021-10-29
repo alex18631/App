@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "user_entity")
-public class userEntity {
+public class MortgageApplication {
     @Transient
     private UUID uuid = UUID.randomUUID();
 
@@ -23,14 +23,14 @@ public class userEntity {
     private int creditAmount;
     private int durationInMonth;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private MortgageApplicationStatus status;
 
-    public userEntity() {
+    public MortgageApplication() {
     }
 
-    public userEntity( String firstName, String secondName, String lastName, String passport,
-                      LocalDate birthDate, Gender gender, int salary,
-                      int creditAmount, int durationInMonth) {
+    public MortgageApplication(String firstName, String secondName, String lastName, String passport,
+                               LocalDate birthDate, Gender gender, int salary,
+                               int creditAmount, int durationInMonth) {
         this.id = uuid.toString();
         this.firstName = firstName;
         this.secondName = secondName;
@@ -41,7 +41,7 @@ public class userEntity {
         this.salary = salary;
         this.creditAmount = creditAmount;
         this.durationInMonth = durationInMonth;
-        this.status = Status.PROCESSING;
+        this.status = MortgageApplicationStatus.PROCESSING;
     }
 
     public String getId() {
@@ -124,19 +124,13 @@ public class userEntity {
         this.durationInMonth = durationInMonth;
     }
 
-    public Status getStatus() {
+    public MortgageApplicationStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(MortgageApplicationStatus status) {
         this.status = status;
     }
 
-    enum Gender{
-        MALE,FEMALE
-    }
 
-    enum Status{
-        PROCESSING, APPROVED, DENIED
-    }
 }
