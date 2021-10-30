@@ -1,6 +1,7 @@
 package ru.filippov.app.logic;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -24,6 +25,15 @@ public class MortgageApplication {
     private int durationInMonth;
     @Enumerated(EnumType.STRING)
     private MortgageApplicationStatus status;
+    private BigDecimal monthlyPayment;
+
+    public BigDecimal getMonthlyPayment() {
+        return monthlyPayment;
+    }
+
+    public void setMonthlyPayment(BigDecimal monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
+    }
 
     public MortgageApplication() {
     }
