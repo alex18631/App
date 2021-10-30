@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: alex
+      changes:
+        - createTable:
+            tableName: user_entity
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: second_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
