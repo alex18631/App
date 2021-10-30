@@ -29,37 +29,32 @@ public class userController {
     public ResponseEntity createUser(@RequestBody CreateMortgageApplication user) {
         var duplicate = userRepository.findByFirstNameAndSecondNameAndLastNameAndPassport(user.getFirstName()
                 , user.getSecondName(), user.getLastName(), user.getPassport());
-        MortgageCalculateParams creditParams = new MortgageCalculateParams();
-        MortgageCalculatorApi calculate = new MortgageCalculatorApi();
-        creditParams.setCreditAmount(BigDecimal.valueOf(user.getCreditAmount()));
-        creditParams.setDurationInMonths(user.getDurationInMonth());
-        var result = calculate.calculate(creditParams).getMonthlyPayment();
 
         if (!user.poleNoEmpty()) {
             return ResponseEntity.badRequest().
                     body(Collections.singletonMap("error", "one of the fields is null"));
         }
         if (duplicate != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).
-                    body(Collections.singletonMap("error", "This application already exists"));
+            return ResponseEntity.badRequest().
+                    body(Collections.singletonMap("error", "Application exist"));
         }
-        var save = userRepository.save(user.getCustomer(user));
 
-        if (result.doubleValue()%user.getSalary() >=2)
-        {
+        var save = userRepository.save(user.getCustomer(user));
+        MortgageCalculateParams creditParams = new MortgageCalculateParams();
+        MortgageCalculatorApi calculate = new MortgageCalculatorApi();
+        creditParams.setCreditAmount(BigDecimal.valueOf(user.getCreditAmount()));
+        creditParams.setDurationInMonths(user.getDurationInMonth());
+
+        var result = calculate.calculate(creditParams).getMonthlyPayment();
+        if (user.getSalary() / result.doubleValue() >= 2) {
             save.setStatus(MortgageApplicationStatus.APPROVED);
             save.setMonthlyPayment(result);
-            userRepository.save(user.getCustomer(user));
-            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
-                    build(Collections.singletonMap("id", save.getId()))).body(null);
-        }else {
+        } else {
             save.setStatus(MortgageApplicationStatus.DENIED);
-            userRepository.save(user.getCustomer(user));
-            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
-                    build(Collections.singletonMap("id", save.getId()))).body(null);
         }
-
-
+        userRepository.save(user.getCustomer(user));
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
+                build(Collections.singletonMap("id", save.getId()))).body(save);
 
 
     }
