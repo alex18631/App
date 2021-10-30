@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 @RestController()
+@RequestMapping(value = "/mortgage")
 public class userController {
 
 
