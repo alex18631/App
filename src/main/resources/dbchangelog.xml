@@ -19,15 +19,6 @@
             <column name="DURATION_IN_MONTH" type="int"/>
             <column name="status" type="varchar"/>
             <column name="monthly_Payment" type="number"/>
-
         </createTable>
-        <loadData encoding="UTF-8"
-                  file="data.csv"
-                  separator=","
-                  tableName="user_entity">
-        </loadData>
-
-
-
     </changeSet>
 </databaseChangeLog>
