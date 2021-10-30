@@ -22,3 +22,48 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: passport
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: BIRTH_DATE
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gender
+                  type: varchar(255)
+                  constraints:
+                     nullable: false
+              - column:
+                  name: salary
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CREDIT_AMOUNT
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: DURATION_IN_MONTH
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: monthly_Payment
+                  type: int
+                  constraints:
+                    nullable: false
