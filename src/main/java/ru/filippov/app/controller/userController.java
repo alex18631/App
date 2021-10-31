@@ -51,7 +51,7 @@ public class userController {
         } else {
             save.setStatus(MortgageApplicationStatus.DENIED);
         }
-        userRepository.save(user.getCustomer(user));
+        userRepository.save(save);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
                 build(Collections.singletonMap("id", save.getId()))).body(save);
 
