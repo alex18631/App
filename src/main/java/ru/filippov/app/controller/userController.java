@@ -39,12 +39,11 @@ public class userController {
                     body(Collections.singletonMap("error", "Application exist"));
         }
 
-        MortgageApplication save = userRepository.save(user.getCustomer(user));
+        MortgageApplication save = user.getCustomer(user);
         MortgageCalculateParams creditParams = new MortgageCalculateParams();
         MortgageCalculatorApi calculate = new MortgageCalculatorApi();
         creditParams.setCreditAmount(BigDecimal.valueOf(user.getCreditAmount()));
         creditParams.setDurationInMonths(user.getDurationInMonth());
-
         BigDecimal result = calculate.calculate(creditParams).getMonthlyPayment();
         if (user.getSalary() / result.doubleValue() >= 2) {
             save.setStatus(MortgageApplicationStatus.APPROVED);
