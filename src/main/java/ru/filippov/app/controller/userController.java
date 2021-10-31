@@ -30,9 +30,16 @@ public class userController {
         MortgageApplication duplicate = userRepository.findByFirstNameAndSecondNameAndLastNameAndPassport(user.getFirstName()
                 , user.getSecondName(), user.getLastName(), user.getPassport());
 
+        if (user.getDurationInMonth() == 0 && user.getCreditAmount() == 0) {
+            return ResponseEntity.badRequest().
+                    body(Collections.singletonMap("error", "durationInMonths: не должно равняться null;" +
+                            " creditAmount: не должно равняться null"));
+        }
+
         if (!user.poleNoEmpty()) {
             return ResponseEntity.badRequest().
                     body(Collections.singletonMap("error", "one of the fields is null"));
+
         }
         if (duplicate != null) {
             return ResponseEntity.badRequest().
