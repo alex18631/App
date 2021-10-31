@@ -3,10 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
-    <preConditions>
-        <dbms type="postgres"/>
-    </preConditions>
-    
+
     <changeSet id="Schema" author="AlexF">
         <createTable tableName="user_entity">
             <column name="id" type="varchar">
@@ -20,7 +17,7 @@
             <column name="gender" type="varchar"/>
             <column name="salary" type="number"/>
             <column name="CREDIT_AMOUNT" type="number"/>
-            <column name="DURATION_IN_MONTH" type="int"/>
+            <column name="DURATION_IN_MONTH" type="number"/>
             <column name="status" type="varchar"/>
             <column name="monthly_Payment" type="number"/>
         </createTable>
