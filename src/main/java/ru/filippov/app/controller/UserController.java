@@ -2,10 +2,10 @@ package ru.filippov.app.controller;
 
 import org.openapitools.client.api.MortgageCalculatorApi;
 import org.openapitools.client.model.MortgageCalculateParams;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.filippov.app.logic.CreateMortgageApplication;
 import ru.filippov.app.logic.MortgageApplication;
 import ru.filippov.app.logic.MortgageApplicationStatus;
 import ru.filippov.app.logic.userRepository;
@@ -15,12 +15,12 @@ import java.util.Collections;
 import java.util.Optional;
 
 @RestController()
-public class userController {
+public class UserController {
 
 
     private final userRepository userRepository;
 
-    public userController(userRepository userRepository) {
+    public UserController(userRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -30,7 +30,7 @@ public class userController {
         MortgageApplication duplicate = userRepository.findByFirstNameAndSecondNameAndLastNameAndPassport(user.getFirstName()
                 , user.getSecondName(), user.getLastName(), user.getPassport());
 
-        if (user.getDurationInMonth() == 0 && user.getCreditAmount() == 0) {
+        if (user.getDurationInMonths() == 0 && user.getCreditAmount().intValueExact() == 0) {
             return ResponseEntity.badRequest().
                     body(Collections.singletonMap("error", "durationInMonths: не должно равняться null;" +
                             " creditAmount: не должно равняться null"));
@@ -42,17 +42,17 @@ public class userController {
 
         }
         if (duplicate != null) {
-            return ResponseEntity.badRequest().
+            return ResponseEntity.status(HttpStatus.CONFLICT).
                     body(Collections.singletonMap("error", "Application exist"));
         }
 
         MortgageApplication save = user.getCustomer(user);
         MortgageCalculateParams creditParams = new MortgageCalculateParams();
         MortgageCalculatorApi calculate = new MortgageCalculatorApi();
-        creditParams.setCreditAmount(BigDecimal.valueOf(user.getCreditAmount()));
-        creditParams.setDurationInMonths(user.getDurationInMonth());
+        creditParams.setCreditAmount((user.getCreditAmount()));
+        creditParams.setDurationInMonths(user.getDurationInMonths());
         BigDecimal result = calculate.calculate(creditParams).getMonthlyPayment();
-        if (user.getSalary() / result.doubleValue() >= 2) {
+        if (user.getSalary().intValue()/ result.intValue()  >= 2) {
             save.setStatus(MortgageApplicationStatus.APPROVED);
             save.setMonthlyPayment(result);
         } else {
@@ -72,7 +72,7 @@ public class userController {
         if (userOpt.isPresent()) {
             return ResponseEntity.of(userOpt);
         }
-        return ResponseEntity.badRequest().
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).
                 body(Collections.singletonMap("error", "Application not exist"));
     }
 }

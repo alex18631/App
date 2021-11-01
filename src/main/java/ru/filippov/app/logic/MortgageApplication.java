@@ -20,9 +20,9 @@ public class MortgageApplication {
     private LocalDate birthDate;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private int salary;
-    private int creditAmount;
-    private int durationInMonth;
+    private BigDecimal salary;
+    private BigDecimal creditAmount;
+    private int durationInMonths;
     @Enumerated(EnumType.STRING)
     private MortgageApplicationStatus status;
     private BigDecimal monthlyPayment;
@@ -39,8 +39,8 @@ public class MortgageApplication {
     }
 
     public MortgageApplication(String firstName, String secondName, String lastName, String passport,
-                               LocalDate birthDate, Gender gender, int salary,
-                               int creditAmount, int durationInMonth) {
+                               LocalDate birthDate, Gender gender, BigDecimal salary,
+                               BigDecimal creditAmount, int durationInMonths) {
         this.id = uuid.toString();
         this.firstName = firstName;
         this.secondName = secondName;
@@ -50,7 +50,7 @@ public class MortgageApplication {
         this.gender = gender;
         this.salary = salary;
         this.creditAmount = creditAmount;
-        this.durationInMonth = durationInMonth;
+        this.durationInMonths = durationInMonths;
         this.status = MortgageApplicationStatus.PROCESSING;
     }
 
@@ -110,28 +110,28 @@ public class MortgageApplication {
         this.gender = gender;
     }
 
-    public int getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
-    public int getCreditAmount() {
+    public BigDecimal getCreditAmount() {
         return creditAmount;
     }
 
-    public void setCreditAmount(int creditAmount) {
+    public void setCreditAmount(BigDecimal creditAmount) {
         this.creditAmount = creditAmount;
     }
 
-    public int getDurationInMonth() {
-        return durationInMonth;
+    public int getDurationInMonths() {
+        return durationInMonths;
     }
 
-    public void setDurationInMonth(int durationInMonth) {
-        this.durationInMonth = durationInMonth;
+    public void setDurationInMonths(int durationInMonths) {
+        this.durationInMonths = durationInMonths;
     }
 
     public MortgageApplicationStatus getStatus() {

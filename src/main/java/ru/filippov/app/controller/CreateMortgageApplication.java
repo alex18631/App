@@ -1,7 +1,11 @@
-package ru.filippov.app.logic;
+package ru.filippov.app.controller;
+
+import ru.filippov.app.logic.Gender;
+import ru.filippov.app.logic.MortgageApplication;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class CreateMortgageApplication {
@@ -13,9 +17,9 @@ public class CreateMortgageApplication {
     private LocalDate birthDate;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private int salary;
-    private int creditAmount;
-    private int durationInMonth;
+    private BigDecimal salary;
+    private BigDecimal creditAmount;
+    private int durationInMonths;
 
     public boolean poleNoEmpty() {
         return this.firstName != null &&
@@ -31,7 +35,7 @@ public class CreateMortgageApplication {
 
     public CreateMortgageApplication(String firstName, String secondName, String lastName,
                                      String passport, LocalDate birthDate, Gender gender,
-                                     int salary, int creditAmount, int durationInMonth) {
+                                     BigDecimal salary, BigDecimal creditAmount, int durationInMonth) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
@@ -40,7 +44,7 @@ public class CreateMortgageApplication {
         this.gender = gender;
         this.salary = salary;
         this.creditAmount = creditAmount;
-        this.durationInMonth = durationInMonth;
+        this.durationInMonths = durationInMonth;
     }
 
     public MortgageApplication getCustomer(CreateMortgageApplication user) {
@@ -48,7 +52,7 @@ public class CreateMortgageApplication {
                 user.getLastName(), user.getPassport(),
                 user.getBirthDate(), user.getGender(),
                 user.getSalary(), user.getCreditAmount(),
-                user.getDurationInMonth());
+                user.getDurationInMonths());
     }
 
     public String getFirstName() {
@@ -92,28 +96,28 @@ public class CreateMortgageApplication {
     }
 
 
-    public int getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
-    public int getCreditAmount() {
+    public BigDecimal getCreditAmount() {
         return creditAmount;
     }
 
-    public void setCreditAmount(int creditAmount) {
+    public void setCreditAmount(BigDecimal creditAmount) {
         this.creditAmount = creditAmount;
     }
 
-    public int getDurationInMonth() {
-        return durationInMonth;
+    public int getDurationInMonths() {
+        return durationInMonths;
     }
 
-    public void setDurationInMonth(int durationInMonth) {
-        this.durationInMonth = durationInMonth;
+    public void setDurationInMonths(int durationInMonths) {
+        this.durationInMonths = durationInMonths;
     }
 
     public Gender getGender() {
