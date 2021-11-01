@@ -30,7 +30,7 @@ public class UserController {
         MortgageApplication duplicate = userRepository.findByFirstNameAndSecondNameAndLastNameAndPassport(user.getFirstName()
                 , user.getSecondName(), user.getLastName(), user.getPassport());
 
-        if (user.getDurationInMonths() == 0 && user.getCreditAmount().intValueExact() == 0) {
+        if (user.getDurationInMonths() == 0 || user.getCreditAmount().compareTo(new BigDecimal(0)) == 0) {
             return ResponseEntity.badRequest().
                     body(Collections.singletonMap("error", "durationInMonths: не должно равняться null;" +
                             " creditAmount: не должно равняться null"));
@@ -52,7 +52,8 @@ public class UserController {
         creditParams.setCreditAmount((user.getCreditAmount()));
         creditParams.setDurationInMonths(user.getDurationInMonths());
         BigDecimal result = calculate.calculate(creditParams).getMonthlyPayment();
-        if (user.getSalary().intValue()/ result.intValue()  >= 2) {
+
+        if ((user.getSalary().compareTo(result)) == 0) {
             save.setStatus(MortgageApplicationStatus.APPROVED);
             save.setMonthlyPayment(result);
         } else {
