@@ -11,6 +11,7 @@ import ru.filippov.app.logic.MortgageApplicationStatus;
 import ru.filippov.app.logic.userRepository;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class UserController {
         creditParams.setDurationInMonths(user.getDurationInMonths());
         BigDecimal result = calculate.calculate(creditParams).getMonthlyPayment();
 
-        if ((user.getSalary().compareTo(result)) == 0) {
+        if ((user.getSalary().divide(result,0,RoundingMode.DOWN).compareTo(new BigDecimal(2)) == 1)) {
             save.setStatus(MortgageApplicationStatus.APPROVED);
             save.setMonthlyPayment(result);
         } else {
